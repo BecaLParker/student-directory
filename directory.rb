@@ -14,7 +14,7 @@
 # ]
 def input_students
   puts 'Please enter the names of the students'
-  puts 'To finish, just hit retrun twice'
+  puts 'To finish, just hit return twice'
   # create an empty array
   students = []
   # get the first name
@@ -38,7 +38,7 @@ end
 
 def print(students)
   students.each_with_index do |student, index|
-    if student[:name][0] == 'A'
+    if student[:name].length < 12
       puts "#{index += 1} #{student[:name]} (#{student[:cohort]} cohort)"
     end
   end
