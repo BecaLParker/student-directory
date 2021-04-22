@@ -11,11 +11,15 @@ def try_load_students
   end
 end
 
+def add_hash_to_students_arr(name, cohort)
+  @students << { name: name, cohort: cohort.to_sym }
+end
+
 def load_students(filename = 'students.csv')
   file = File.open(filename, 'r')
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    @students << { name: name, cohort: cohort.to_sym }
+    add_hash_to_students_arr(name, cohort)
   end
   file.close
 end
@@ -58,7 +62,7 @@ def input_students
   input = STDIN.gets.chomp
   until input.empty?
     name, cohort = input.split(',')
-    @students << { name: name, cohort: cohort.to_sym }
+    add_hash_to_students_arr(name, cohort)
     puts "Now we have #{@students.count} students"
     input = STDIN.gets.chomp
   end
