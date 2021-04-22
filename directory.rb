@@ -16,10 +16,10 @@ def add_hash_to_students_arr(name, cohort)
 end
 
 def load_students(filename = 'students.csv')
-  File.open(filename, 'r') do |file|
+  File.open(filename, 'r+') do |file|
     file.readlines.each do |line|
       name, cohort = line.chomp.split(',')
-      add_hash_to_students_arr(name, cohort)
+      add_hash_to_students_arr(name, cohort) unless @students.include?(name: name, cohort: cohort.to_sym)
     end
   end
   puts "loaded #{@students.count} from #{filename}"
@@ -62,7 +62,7 @@ def input_students
   puts 'To finish, just hit return twice'
   input = STDIN.gets.chomp
   until input.empty?
-    name, cohort = input.split(',')
+    name, cohort = input.chomp.split(',')
     add_hash_to_students_arr(name, cohort)
     puts "Now we have #{@students.count} students"
     input = STDIN.gets.chomp
@@ -76,11 +76,11 @@ def show_students
 end
 
 def save_students
-  File.open('students.csv', 'w') do |file|
+  File.open('students.csv', 'a+') do |file|
     @students.each do |student|
       student_data = [student[:name], student[:cohort]]
       csv_line = student_data.join(',')
-      file.puts csv_line
+      file.puts csv_line unless File.readlines(file).grep(/#{csv_line}/).any?
     end
   end
   puts 'Students saved successfully'
