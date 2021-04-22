@@ -5,18 +5,8 @@ def interactive_menu
     # 1. display the menu options
     print_menu
     # 2. read the input menu and save it to the variable
-    selection = gets.chomp
     # 3. do what the user has asked
-    case selection
-    when '1'
-      students = input_students
-    when '2'
-      show_students
-    when '9'
-      exit
-    else
-      puts "I don't known what you meant, try again"
-    end
+    process(gets.chomp)
   end
 end
 
@@ -24,6 +14,19 @@ def print_menu
   puts '1. Input the students'
   puts '2. Show the students'
   puts '9. Exit'
+end
+
+def process(selection)
+  case selection
+  when '1'
+    students = input_students
+  when '2'
+    show_students
+  when '9'
+    exit
+  else
+    puts "I don't known what you meant, try again"
+  end
 end
 
 def show_students
