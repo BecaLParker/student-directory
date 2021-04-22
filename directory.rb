@@ -1,7 +1,18 @@
 @students = []
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exist?(filename)
+    load_students(filename)
+    puts "loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit
+  end
+end
 
-def load_students
-  file = File.open('students.csv', 'r')
+def load_students(filename = 'students.csv')
+  file = File.open(filename, 'r')
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
     @students << { name: name, cohort: cohort.to_sym }
@@ -12,7 +23,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -44,12 +55,12 @@ end
 def input_students
   puts 'Please enter the name and cohort of the students in this format: name, cohort'
   puts 'To finish, just hit return twice'
-  input = gets.chomp
+  input = STDIN.gets.chomp
   until input.empty?
     name, cohort = input.split(',')
     @students << { name: name, cohort: cohort.to_sym }
     puts "Now we have #{@students.count} students"
-    input = gets.chomp
+    input = STDIN.gets.chomp
   end
 end
 
@@ -84,4 +95,5 @@ def print_footer
   puts "Overall, we have #{@students.count} great students".center(40)
 end
 
+try_load_students
 interactive_menu
