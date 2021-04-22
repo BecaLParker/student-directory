@@ -16,12 +16,12 @@ def add_hash_to_students_arr(name, cohort)
 end
 
 def load_students(filename = 'students.csv')
-  file = File.open(filename, 'r')
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-    add_hash_to_students_arr(name, cohort)
+  File.open(filename, 'r') do |file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(',')
+      add_hash_to_students_arr(name, cohort)
+    end
   end
-  file.close
   puts "loaded #{@students.count} from #{filename}"
 end
 
@@ -76,13 +76,13 @@ def show_students
 end
 
 def save_students
-  file = File.open('students.csv', 'w')
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(',')
-    file.puts csv_line
+  File.open('students.csv', 'w') do |file|
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(',')
+      file.puts csv_line
+    end
   end
-  file.close
   puts 'Students saved successfully'
 end
 
