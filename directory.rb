@@ -1,10 +1,10 @@
 @students = []
 def try_load_students
   filename = ARGV.first
-  return if filename.nil?
-  if File.exist?(filename)
+  if filename.nil?
+    load_students
+  elsif File.exist?(filename)
     load_students(filename)
-    puts "loaded #{@students.count} from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist."
     exit
@@ -22,6 +22,7 @@ def load_students(filename = 'students.csv')
     add_hash_to_students_arr(name, cohort)
   end
   file.close
+  puts "loaded #{@students.count} from #{filename}"
 end
 
 def interactive_menu
