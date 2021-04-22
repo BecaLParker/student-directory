@@ -1,4 +1,5 @@
 def interactive_menu
+  students = []
   loop do
     puts '1. Input the students'
     puts '2. Show the students'
@@ -10,7 +11,9 @@ def interactive_menu
     when '1'
       students = input_students
     when '2'
-      # show the students
+      print_header
+      print(students)
+      print_footer(students)
     when '9'
       exit
     else
@@ -59,7 +62,7 @@ def print_footer(students)
 end
 # nothing happens until we call the methods
 interactive_menu
-students = input_students
-print_header
-print(students)
-print_footer(students)
+# students = input_students
+# print_header
+# print(students)
+# print_footer(students)
