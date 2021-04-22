@@ -1,5 +1,6 @@
+@students = [] # an empty array, accessible to all methods
+
 def interactive_menu
-  students = []
   loop do
     # 1. display the menu options
     print_menu
@@ -10,9 +11,7 @@ def interactive_menu
     when '1'
       students = input_students
     when '2'
-      print_header
-      print(students)
-      print_footer(students)
+      show_students
     when '9'
       exit
     else
@@ -27,26 +26,31 @@ def print_menu
   puts '9. Exit'
 end
 
+def show_students
+  print_header
+  print(@students)
+  print_footer(@students)
+end
+
 def input_students
   puts 'Please enter the name and cohort of the students in this format: name, cohort'
   puts 'To finish, just hit return twice'
-  # create an empty array
-  students = []
+
   # get the first name
 
   input = gets.chomp
 
-  # while the araay is not empty, repeat this code
+  # while the input is not empty, repeat this code
   until input.empty?
     # add the student hash to the array
     name, cohort = input.split(',')
-    students << { name: name, cohort: cohort }
-    puts "Now we have #{students.count} students"
+    @students << { name: name, cohort: cohort }
+    puts "Now we have #{@students.count} students"
     # get another name from the user
     input = gets.chomp
   end
   # return the array of students
-  students
+  # students
 end
 
 def print_header
@@ -54,16 +58,15 @@ def print_header
   puts '-------------'.center(40)
 end
 
-def print(students)
-  students.each_with_index do |student, index|
-    # if student[:name].length < 12
+def print(_students)
+  @students.each_with_index do |student, index|
     puts "#{index += 1}. #{student[:name]} (#{student[:cohort]} cohort)".center(40)
     # end
   end
 end
 
-def print_footer(students)
-  puts "Overall, we have #{students.count} great students".center(40)
+def print_footer(_students)
+  puts "Overall, we have #{@students.count} great students".center(40)
 end
 # nothing happens until we call the methods
 interactive_menu
