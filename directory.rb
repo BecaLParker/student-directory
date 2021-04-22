@@ -31,8 +31,8 @@ end
 
 def show_students
   print_header
-  print(@students)
-  print_footer(@students)
+  print_student_list
+  print_footer
 end
 
 def input_students
@@ -61,14 +61,14 @@ def print_header
   puts '-------------'.center(40)
 end
 
-def print(_students)
+def print_student_list
   @students.each_with_index do |student, index|
     puts "#{index += 1}. #{student[:name]} (#{student[:cohort]} cohort)".center(40)
     # end
   end
 end
 
-def print_footer(_students)
+def print_footer
   puts "Overall, we have #{@students.count} great students".center(40)
 end
 # nothing happens until we call the methods
